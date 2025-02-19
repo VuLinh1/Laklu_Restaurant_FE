@@ -100,7 +100,7 @@ export default function RoleManagement() {
       cell: ({ row }) => (
         <div
           key={row.id}
-          className="text-primary py-1 grid grid-cols-1 gap-1.5 text-sm"
+          className="text-muted-foreground py-1 grid grid-cols-1 gap-1.5 text-sm"
         >
           <p className={'font-bold'}>{row.original.name}</p>
           <p>{row.original.description}</p>
@@ -125,15 +125,19 @@ export default function RoleManagement() {
       id: 'actions',
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon">
-            <Eye className="h-4 w-4" />
+          <Button variant="ghost" size="icon" asChild>
+            <Link className={"text-primary"} href={`/settings/roles/${row.original.id}`}>
+              <Eye className="h-4 w-4" />
+            </Link>
           </Button>
-          <Button variant="ghost" size="icon">
-            <Pencil className="h-4 w-4" />
+          <Button variant="ghost" size="icon" asChild>
+            <Link className={"text-primary"} href={`/settings/roles/edit/${row.original.id}`}>
+              <Pencil className="h-4 w-4" />
+            </Link>
           </Button>
           <DeleteRoleDialog
             triggerButton={
-              <Button variant="ghost" size="icon">
+              <Button  className={"text-primary"} variant="ghost" size="icon">
                 <Trash2 className="h-4 w-4" />
               </Button>
             }

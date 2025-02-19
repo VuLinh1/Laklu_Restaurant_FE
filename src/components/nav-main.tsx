@@ -17,10 +17,13 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
-import React, { useCallback } from 'react';
-import { useBreadcrumbStore } from '@/stores/useBreadcrumbStore';
+import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import {
+  generateBreadcrumb,
+  resolveUrl,
+} from '@/components/ui/BreadcrumbHeader';
 
 export interface NavItem {
   title: string;
@@ -31,18 +34,27 @@ export interface NavItem {
 }
 
 export function NavMain({ title, items }: { title: string; items: NavItem[] }) {
-  const { setBreadcrumb } = useBreadcrumbStore();
   const path = usePathname();
+  const breadcrumb = generateBreadcrumb(items, path);
   const isActive = useCallback(
     (item: NavItem) => {
-      if (item.url === path) {
+      const isBreadcrumbMatch = (navItem: NavItem) =>
+        breadcrumb.some(
+          (i) =>
+            i.url === resolveUrl(navItem.url, path) && i.title === navItem.title
+        );
+
+      if (isBreadcrumbMatch(item)) {
         return true;
       }
+
       if (item.items) {
-        return item.items.some((subItem) => subItem.url === path);
+        return item.items.some(isBreadcrumbMatch);
       }
+
+      return false;
     },
-    [items, path]
+    [breadcrumb, path]
   );
 
   return (
@@ -62,21 +74,14 @@ export function NavMain({ title, items }: { title: string; items: NavItem[] }) {
                   tooltip={item.title}
                   className={
                     isActive(item)
-                      ? 'bg-sidebar-accent text-sidebar-accent-foreground'
+                      ? 'bg-blue-400 text-accent-foreground'
                       : ''
                   }
                 >
                   {!item.items ? (
                     <>
                       {item.icon && <item.icon />}
-                      <Link
-                        href={item.url}
-                        onClick={() =>
-                          setBreadcrumb({
-                            current: { title: item.title, url: item.url },
-                          })
-                        }
-                      >
+                      <Link href={item.url}>
                         <span>{item.title}</span>
                       </Link>
                     </>
@@ -103,21 +108,7 @@ export function NavMain({ title, items }: { title: string; items: NavItem[] }) {
                             }
                             asChild
                           >
-                            <Link
-                              href={subItem.url}
-                              onClick={() =>
-                                setBreadcrumb({
-                                  current: {
-                                    title: subItem.title,
-                                    url: subItem.url,
-                                  },
-                                  previous: {
-                                    title: item.title,
-                                    url: item.url,
-                                  },
-                                })
-                              }
-                            >
+                            <Link href={subItem.url}>
                               <span>{subItem.title}</span>
                             </Link>
                           </SidebarMenuSubButton>
