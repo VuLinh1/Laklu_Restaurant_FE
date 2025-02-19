@@ -1,6 +1,8 @@
 import { GalleryVerticalEnd } from 'lucide-react';
 
 import { LoginForm } from '@/app/login/_components/login-form';
+import { LoginFormV2 } from './components/login-form-v2';
+
 
 export default function LoginPage() {
   return (
@@ -11,12 +13,12 @@ export default function LoginPage() {
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
             </div>
-            Acme Inc.
+            LakLu Restaurant
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm />
+            <LoginFormV2 />
           </div>
         </div>
       </div>
