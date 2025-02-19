@@ -87,7 +87,7 @@ const data = {
       items: [
         {
           title: 'Danh sách',
-          url: '#',
+          url: '/staff',
         },
         {
           title: 'Lịch làm việc',
