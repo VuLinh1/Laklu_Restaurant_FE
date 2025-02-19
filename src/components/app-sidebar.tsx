@@ -72,11 +72,11 @@ const data = {
       items: [
         {
           title: 'Danh mục',
-          url: '#',
+          url: '/menu/category',
         },
         {
           title: 'Món ăn',
-          url: '#',
+          url: '/menu/food',
         },
       ],
     },
