@@ -215,11 +215,23 @@ export default function FoodManagement() {
                     {food.name}
                   </h3>
                   <Badge
-                    className={`text-gray-800 ${food.status === 'Còn hàng' ? 'bg-gray-200' : 'bg-gray-400'}`}
+                    className={`text-gray-800 transition-colors duration-300 ${
+                      food.status === 'Còn hàng'
+                        ? 'bg-gray-200 hover:bg-gray-300'
+                        : 'bg-gray-400 hover:bg-gray-500'
+                    }`}
                   >
                     {food.status}
                   </Badge>
-                  <p className="text-gray-600 mb-2">{food.category}</p>
+
+                  <p className="text-white-600 mb-2">{food.category}</p>
+                  <p className="text-2xl font-bold text-primary">
+                    {food.price.toLocaleString('vi-VN', {
+                      style: 'currency',
+                      currency: 'VND',
+                    })}
+                  </p>
+
                   <p className="mb-4 text-gray-700">{food.description}</p>
                   <div className="flex justify-end space-x-2">
                     <Button
