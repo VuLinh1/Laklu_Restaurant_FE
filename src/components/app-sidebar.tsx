@@ -107,6 +107,26 @@ const data = {
         {
           title: 'Vai trò',
           url: '/settings/roles',
+          items: [
+            {
+              title: 'Thêm',
+              url: '/settings/roles/add',
+            },
+            {
+              title: 'Sửa',
+              url: '/settings/roles/edit/:id',
+            },
+            {
+              title: 'Chi tiết',
+              url: '/settings/roles/:id',
+              items: [
+                {
+                  title: 'Test',
+                  url: '/settings/roles/:id/test',
+                },    
+              ],
+            },
+          ],
         },
         {
           title: 'Quyền',
